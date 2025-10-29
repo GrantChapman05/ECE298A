@@ -1,0 +1,1186 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.33 (git sha1 2584903a060)
+
+1. Executing Verilog-2005 frontend: src/divider.v
+Parsing SystemVerilog input from `src/divider.v' to AST representation.
+Generating RTLIL representation for module `\divider'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: src/lock_detector.v
+Parsing SystemVerilog input from `src/lock_detector.v' to AST representation.
+Generating RTLIL representation for module `\lock_detector'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: src/loop_filter.v
+Parsing SystemVerilog input from `src/loop_filter.v' to AST representation.
+Generating RTLIL representation for module `\loop_filter'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: src/nco.v
+Parsing SystemVerilog input from `src/nco.v' to AST representation.
+Generating RTLIL representation for module `\nco'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: src/phase_detector.v
+Parsing SystemVerilog input from `src/phase_detector.v' to AST representation.
+Generating RTLIL representation for module `\phase_detector'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: src/pll_top.v
+Parsing SystemVerilog input from `src/pll_top.v' to AST representation.
+Generating RTLIL representation for module `\pll_top'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: src/sync_edge.v
+Parsing SystemVerilog input from `src/sync_edge.v' to AST representation.
+Generating RTLIL representation for module `\sync_edge'.
+Successfully finished Verilog frontend.
+
+8. Executing HIERARCHY pass (managing design hierarchy).
+
+8.1. Analyzing design hierarchy..
+Top module:  \pll_top
+Used module:     \lock_detector
+Used module:     \nco
+Used module:     \loop_filter
+Used module:     \phase_detector
+Used module:     \divider
+Used module:     \sync_edge
+Parameter \FW = 24
+
+8.2. Executing AST frontend in derive mode using pre-parsed AST for module `\nco'.
+Parameter \FW = 24
+Generating RTLIL representation for module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Parameter \FW = 24
+Parameter \KP_SH = 6
+Parameter \KI_SH = 10
+
+8.3. Executing AST frontend in derive mode using pre-parsed AST for module `\loop_filter'.
+Parameter \FW = 24
+Parameter \KP_SH = 6
+Parameter \KI_SH = 10
+Generating RTLIL representation for module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Parameter \N = 4
+
+8.4. Executing AST frontend in derive mode using pre-parsed AST for module `\divider'.
+Parameter \N = 4
+Generating RTLIL representation for module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+
+8.5. Analyzing design hierarchy..
+Top module:  \pll_top
+Used module:     \lock_detector
+Used module:     $paramod\nco\FW=s32'00000000000000000000000000011000
+Used module:     $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter
+Used module:     \phase_detector
+Used module:     $paramod\divider\N=s32'00000000000000000000000000000100
+Used module:     \sync_edge
+
+8.6. Analyzing design hierarchy..
+Top module:  \pll_top
+Used module:     \lock_detector
+Used module:     $paramod\nco\FW=s32'00000000000000000000000000011000
+Used module:     $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter
+Used module:     \phase_detector
+Used module:     $paramod\divider\N=s32'00000000000000000000000000000100
+Used module:     \sync_edge
+Removing unused module `\nco'.
+Removing unused module `\loop_filter'.
+Removing unused module `\divider'.
+Removed 3 unused modules.
+
+9. Executing PROC pass (convert processes to netlists).
+
+9.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+9.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$src/sync_edge.v:14$37 in module sync_edge.
+Marked 1 switch rules as full_case in process $proc$src/phase_detector.v:15$32 in module phase_detector.
+Marked 2 switch rules as full_case in process $proc$src/divider.v:20$61 in module $paramod\divider\N=s32'00000000000000000000000000000100.
+Marked 3 switch rules as full_case in process $proc$src/loop_filter.v:38$51 in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Marked 2 switch rules as full_case in process $proc$src/lock_detector.v:18$6 in module lock_detector.
+Marked 1 switch rules as full_case in process $proc$src/nco.v:15$41 in module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Removed a total of 0 dead cases.
+
+9.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 9 redundant assignments.
+Promoted 2 assignments to connections.
+
+9.4. Executing PROC_INIT pass (extract init attributes).
+
+9.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\sync_edge.$proc$src/sync_edge.v:14$37'.
+Found async reset \rst_n in `\phase_detector.$proc$src/phase_detector.v:15$32'.
+Found async reset \rst_n in `$paramod\divider\N=s32'00000000000000000000000000000100.$proc$src/divider.v:20$61'.
+Found async reset \rst_n in `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.$proc$src/loop_filter.v:38$51'.
+Found async reset \rst_n in `\lock_detector.$proc$src/lock_detector.v:18$6'.
+Found async reset \rst_n in `$paramod\nco\FW=s32'00000000000000000000000000011000.$proc$src/nco.v:15$41'.
+
+9.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~10 debug messages>
+
+9.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\sync_edge.$proc$src/sync_edge.v:14$37'.
+     1/2: $0\q2[0:0]
+     2/2: $0\q1[0:0]
+Creating decoders for process `\phase_detector.$proc$src/phase_detector.v:15$32'.
+     1/2: $0\dn[0:0]
+     2/2: $0\up[0:0]
+Creating decoders for process `$paramod\divider\N=s32'00000000000000000000000000000100.$proc$src/divider.v:20$61'.
+     1/3: $0\cnt[1:0]
+     2/3: $0\pulse[0:0]
+     3/3: $0\clk_div[0:0]
+Creating decoders for process `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.$proc$src/loop_filter.v:38$51'.
+     1/6: $3\sat_u$func$src/loop_filter.v:44$44.$result[23:0]$60
+     2/6: $2\sat_u$func$src/loop_filter.v:44$44.$result[23:0]$58
+     3/6: $0\freq_word[23:0]
+     4/6: $1\sat_u$func$src/loop_filter.v:44$44.$result[23:0]$55
+     5/6: $1\sat_u$func$src/loop_filter.v:44$44.x[24:0]$56
+     6/6: $0\iacc[24:0]
+Creating decoders for process `\lock_detector.$proc$src/lock_detector.v:18$6'.
+     1/2: $0\locked[0:0]
+     2/2: $0\qcnt[10:0]
+Creating decoders for process `$paramod\nco\FW=s32'00000000000000000000000000011000.$proc$src/nco.v:15$41'.
+     1/2: $0\nco_clk[0:0]
+     2/2: $0\phase[23:0]
+
+9.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+9.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\sync_edge.\q1' using process `\sync_edge.$proc$src/sync_edge.v:14$37'.
+  created $adff cell `$procdff$101' with positive edge clock and negative level reset.
+Creating register for signal `\sync_edge.\q2' using process `\sync_edge.$proc$src/sync_edge.v:14$37'.
+  created $adff cell `$procdff$102' with positive edge clock and negative level reset.
+Creating register for signal `\phase_detector.\up' using process `\phase_detector.$proc$src/phase_detector.v:15$32'.
+  created $adff cell `$procdff$103' with positive edge clock and negative level reset.
+Creating register for signal `\phase_detector.\dn' using process `\phase_detector.$proc$src/phase_detector.v:15$32'.
+  created $adff cell `$procdff$104' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\divider\N=s32'00000000000000000000000000000100.\clk_div' using process `$paramod\divider\N=s32'00000000000000000000000000000100.$proc$src/divider.v:20$61'.
+  created $adff cell `$procdff$105' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\divider\N=s32'00000000000000000000000000000100.\cnt' using process `$paramod\divider\N=s32'00000000000000000000000000000100.$proc$src/divider.v:20$61'.
+  created $adff cell `$procdff$106' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\divider\N=s32'00000000000000000000000000000100.\pulse' using process `$paramod\divider\N=s32'00000000000000000000000000000100.$proc$src/divider.v:20$61'.
+  created $adff cell `$procdff$107' with positive edge clock and negative level reset.
+Creating register for signal `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.\freq_word' using process `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.$proc$src/loop_filter.v:38$51'.
+  created $adff cell `$procdff$108' with positive edge clock and negative level reset.
+Creating register for signal `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.\iacc' using process `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.$proc$src/loop_filter.v:38$51'.
+  created $adff cell `$procdff$109' with positive edge clock and negative level reset.
+Creating register for signal `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.\sat_u$func$src/loop_filter.v:44$44.$result' using process `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.$proc$src/loop_filter.v:38$51'.
+  created $adff cell `$procdff$110' with positive edge clock and negative level reset.
+Creating register for signal `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.\sat_u$func$src/loop_filter.v:44$44.x' using process `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.$proc$src/loop_filter.v:38$51'.
+  created $adff cell `$procdff$111' with positive edge clock and negative level reset.
+Creating register for signal `\lock_detector.\locked' using process `\lock_detector.$proc$src/lock_detector.v:18$6'.
+  created $adff cell `$procdff$112' with positive edge clock and negative level reset.
+Creating register for signal `\lock_detector.\qcnt' using process `\lock_detector.$proc$src/lock_detector.v:18$6'.
+  created $adff cell `$procdff$113' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\nco\FW=s32'00000000000000000000000000011000.\nco_clk' using process `$paramod\nco\FW=s32'00000000000000000000000000011000.$proc$src/nco.v:15$41'.
+  created $adff cell `$procdff$114' with positive edge clock and negative level reset.
+Creating register for signal `$paramod\nco\FW=s32'00000000000000000000000000011000.\phase' using process `$paramod\nco\FW=s32'00000000000000000000000000011000.$proc$src/nco.v:15$41'.
+  created $adff cell `$procdff$115' with positive edge clock and negative level reset.
+
+9.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+9.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `sync_edge.$proc$src/sync_edge.v:14$37'.
+Found and cleaned up 5 empty switches in `\phase_detector.$proc$src/phase_detector.v:15$32'.
+Removing empty process `phase_detector.$proc$src/phase_detector.v:15$32'.
+Found and cleaned up 1 empty switch in `$paramod\divider\N=s32'00000000000000000000000000000100.$proc$src/divider.v:20$61'.
+Removing empty process `$paramod\divider\N=s32'00000000000000000000000000000100.$proc$src/divider.v:20$61'.
+Found and cleaned up 2 empty switches in `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.$proc$src/loop_filter.v:38$51'.
+Removing empty process `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.$proc$src/loop_filter.v:38$51'.
+Found and cleaned up 2 empty switches in `\lock_detector.$proc$src/lock_detector.v:18$6'.
+Removing empty process `lock_detector.$proc$src/lock_detector.v:18$6'.
+Removing empty process `$paramod\nco\FW=s32'00000000000000000000000000011000.$proc$src/nco.v:15$41'.
+Cleaned up 10 empty switches.
+
+9.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module sync_edge.
+Optimizing module pll_top.
+Optimizing module phase_detector.
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+<suppressed ~2 debug messages>
+Optimizing module lock_detector.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+
+10. Executing OPT pass (performing simple optimizations).
+
+10.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module sync_edge.
+Optimizing module pll_top.
+Optimizing module phase_detector.
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Optimizing module lock_detector.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+
+10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\sync_edge'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Finding identical cells in module `\lock_detector'.
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Removed a total of 0 cells.
+
+10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \sync_edge..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \pll_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \phase_detector..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\divider\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $procmux$91.
+Running muxtree optimizer on module \lock_detector..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\nco\FW=s32'00000000000000000000000000011000..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 1 multiplexer ports.
+<suppressed ~8 debug messages>
+
+10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \sync_edge.
+  Optimizing cells in module \pll_top.
+  Optimizing cells in module \phase_detector.
+  Optimizing cells in module $paramod\divider\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+  Optimizing cells in module \lock_detector.
+  Optimizing cells in module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Performed a total of 0 changes.
+
+10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\sync_edge'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Finding identical cells in module `\lock_detector'.
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Removed a total of 0 cells.
+
+10.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$103 ($adff) from module phase_detector (D = $procmux$76_Y, Q = \up).
+Adding EN signal on $procdff$104 ($adff) from module phase_detector (D = $procmux$70_Y, Q = \dn).
+Adding EN signal on $procdff$105 ($adff) from module $paramod\divider\N=s32'00000000000000000000000000000100 (D = $not$src/divider.v:29$64_Y, Q = \clk_div).
+Setting constant 1-bit at position 0 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 1 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 2 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 3 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 4 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 5 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 6 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 7 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 8 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 9 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 10 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 11 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 12 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 13 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 14 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 15 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 16 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 17 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 18 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 19 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 20 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 21 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 22 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 23 on $procdff$110 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 0 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 1 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 2 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 3 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 4 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 5 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 6 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 7 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 8 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 9 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 10 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 11 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 12 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 13 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 14 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 15 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 16 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 17 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 18 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 19 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 20 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 21 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 22 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 23 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Setting constant 1-bit at position 24 on $procdff$111 ($adff) from module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Adding EN signal on $procdff$113 ($adff) from module lock_detector (D = $procmux$99_Y, Q = \qcnt).
+
+10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \sync_edge..
+Finding unused cells or wires in module \pll_top..
+Finding unused cells or wires in module \phase_detector..
+Finding unused cells or wires in module $paramod\divider\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+Finding unused cells or wires in module \lock_detector..
+Finding unused cells or wires in module $paramod\nco\FW=s32'00000000000000000000000000011000..
+Removed 7 unused cells and 48 unused wires.
+<suppressed ~13 debug messages>
+
+10.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Optimizing module lock_detector.
+<suppressed ~1 debug messages>
+Optimizing module phase_detector.
+<suppressed ~2 debug messages>
+Optimizing module pll_top.
+Optimizing module sync_edge.
+
+10.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\divider\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\nco\FW=s32'00000000000000000000000000011000..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \lock_detector..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \phase_detector..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \pll_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \sync_edge..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+  Optimizing cells in module $paramod\divider\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\nco\FW=s32'00000000000000000000000000011000.
+  Optimizing cells in module \lock_detector.
+  Optimizing cells in module \phase_detector.
+  Optimizing cells in module \pll_top.
+  Optimizing cells in module \sync_edge.
+Performed a total of 0 changes.
+
+10.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Finding identical cells in module `\lock_detector'.
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\sync_edge'.
+Removed a total of 0 cells.
+
+10.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+Finding unused cells or wires in module $paramod\divider\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\nco\FW=s32'00000000000000000000000000011000..
+Finding unused cells or wires in module \lock_detector..
+Finding unused cells or wires in module \phase_detector..
+Finding unused cells or wires in module \pll_top..
+Finding unused cells or wires in module \sync_edge..
+
+10.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Optimizing module lock_detector.
+Optimizing module phase_detector.
+Optimizing module pll_top.
+Optimizing module sync_edge.
+
+10.16. Finished OPT passes. (There is nothing left to do.)
+
+11. Executing FSM pass (extract and optimize FSM).
+
+11.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+11.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+11.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+11.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+Finding unused cells or wires in module $paramod\divider\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\nco\FW=s32'00000000000000000000000000011000..
+Finding unused cells or wires in module \lock_detector..
+Finding unused cells or wires in module \phase_detector..
+Finding unused cells or wires in module \pll_top..
+Finding unused cells or wires in module \sync_edge..
+
+11.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+11.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+11.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+11.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+12. Executing OPT pass (performing simple optimizations).
+
+12.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Optimizing module lock_detector.
+Optimizing module phase_detector.
+Optimizing module pll_top.
+Optimizing module sync_edge.
+
+12.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Finding identical cells in module `\lock_detector'.
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\sync_edge'.
+Removed a total of 0 cells.
+
+12.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\divider\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\nco\FW=s32'00000000000000000000000000011000..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \lock_detector..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \phase_detector..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \pll_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \sync_edge..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+12.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+  Optimizing cells in module $paramod\divider\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\nco\FW=s32'00000000000000000000000000011000.
+  Optimizing cells in module \lock_detector.
+  Optimizing cells in module \phase_detector.
+  Optimizing cells in module \pll_top.
+  Optimizing cells in module \sync_edge.
+Performed a total of 0 changes.
+
+12.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Finding identical cells in module `\lock_detector'.
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\sync_edge'.
+Removed a total of 0 cells.
+
+12.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+12.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+Finding unused cells or wires in module $paramod\divider\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\nco\FW=s32'00000000000000000000000000011000..
+Finding unused cells or wires in module \lock_detector..
+Finding unused cells or wires in module \phase_detector..
+Finding unused cells or wires in module \pll_top..
+Finding unused cells or wires in module \sync_edge..
+
+12.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Optimizing module lock_detector.
+Optimizing module phase_detector.
+Optimizing module pll_top.
+Optimizing module sync_edge.
+
+12.9. Finished OPT passes. (There is nothing left to do.)
+
+13. Executing MEMORY pass.
+
+13.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+13.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+13.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+13.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+13.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+13.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+Finding unused cells or wires in module $paramod\divider\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\nco\FW=s32'00000000000000000000000000011000..
+Finding unused cells or wires in module \lock_detector..
+Finding unused cells or wires in module \phase_detector..
+Finding unused cells or wires in module \pll_top..
+Finding unused cells or wires in module \sync_edge..
+
+13.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+13.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+13.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+Finding unused cells or wires in module $paramod\divider\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\nco\FW=s32'00000000000000000000000000011000..
+Finding unused cells or wires in module \lock_detector..
+Finding unused cells or wires in module \phase_detector..
+Finding unused cells or wires in module \pll_top..
+Finding unused cells or wires in module \sync_edge..
+
+13.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+13.11. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+14. Executing OPT pass (performing simple optimizations).
+
+14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Optimizing module lock_detector.
+Optimizing module phase_detector.
+Optimizing module pll_top.
+Optimizing module sync_edge.
+
+14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Finding identical cells in module `\lock_detector'.
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\sync_edge'.
+Removed a total of 0 cells.
+
+14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\divider\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\nco\FW=s32'00000000000000000000000000011000..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \lock_detector..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \phase_detector..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \pll_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \sync_edge..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~7 debug messages>
+
+14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+  Optimizing cells in module $paramod\divider\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\nco\FW=s32'00000000000000000000000000011000.
+  Optimizing cells in module \lock_detector.
+  Optimizing cells in module \phase_detector.
+  Optimizing cells in module \pll_top.
+  Optimizing cells in module \sync_edge.
+Performed a total of 0 changes.
+
+14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Finding identical cells in module `\lock_detector'.
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\sync_edge'.
+Removed a total of 0 cells.
+
+14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+Finding unused cells or wires in module $paramod\divider\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\nco\FW=s32'00000000000000000000000000011000..
+Finding unused cells or wires in module \lock_detector..
+Finding unused cells or wires in module \phase_detector..
+Finding unused cells or wires in module \pll_top..
+Finding unused cells or wires in module \sync_edge..
+
+14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Optimizing module lock_detector.
+Optimizing module phase_detector.
+Optimizing module pll_top.
+Optimizing module sync_edge.
+
+14.9. Finished OPT passes. (There is nothing left to do.)
+
+15. Executing TECHMAP pass (map to technology primitives).
+
+15.1. Executing Verilog-2005 frontend: /usr/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+15.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $ne.
+Running "alumacc" on wrapper $extern:wrap:$add:A_SIGNED=0:A_WIDTH=11:B_SIGNED=0:B_WIDTH=1:Y_WIDTH=11:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$add:A_SIGNED=0:A_WIDTH=11:B_SIGNED=0:B_WIDTH=1:Y_WIDTH=11:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$add:A_SIGNED=0:A_WIDTH=11:B_SIGNED=0:B_WIDTH=1:Y_WIDTH=11:394426c56d1a028ba8fdd5469b163e04011def47.
+Using extmapper simplemap for cells of type $eq.
+Using template $paramod$2f5fb04daf2da94d981bf9455fa4454c6ec8b705\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000001011 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $or.
+Running "alumacc" on wrapper $extern:wrap:$add:A_SIGNED=0:A_WIDTH=24:B_SIGNED=0:B_WIDTH=24:Y_WIDTH=24:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$add:A_SIGNED=0:A_WIDTH=24:B_SIGNED=0:B_WIDTH=24:Y_WIDTH=24:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$add:A_SIGNED=0:A_WIDTH=24:B_SIGNED=0:B_WIDTH=24:Y_WIDTH=24:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $paramod$e82d3fc1811c5751348a3964470632b35a435fc7\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000011000 for cells of type $lcu.
+Running "alumacc" on wrapper $extern:wrap:$add:A_SIGNED=0:A_WIDTH=2:B_SIGNED=0:B_WIDTH=1:Y_WIDTH=2:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$add:A_SIGNED=0:A_WIDTH=2:B_SIGNED=0:B_WIDTH=1:Y_WIDTH=2:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$add:A_SIGNED=0:A_WIDTH=2:B_SIGNED=0:B_WIDTH=1:Y_WIDTH=2:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $paramod$175e67c02b86e96b1288b9dc100122520d7240d8\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000000010 for cells of type $lcu.
+Running "alumacc" on wrapper $extern:wrap:$add:A_SIGNED=1:A_WIDTH=25:B_SIGNED=1:B_WIDTH=25:Y_WIDTH=25:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$add:A_SIGNED=1:A_WIDTH=25:B_SIGNED=1:B_WIDTH=25:Y_WIDTH=25:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$add:A_SIGNED=1:A_WIDTH=25:B_SIGNED=1:B_WIDTH=25:Y_WIDTH=25:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$lt:A_SIGNED=1:A_WIDTH=25:B_SIGNED=1:B_WIDTH=32:Y_WIDTH=1:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$lt:A_SIGNED=1:A_WIDTH=25:B_SIGNED=1:B_WIDTH=32:Y_WIDTH=1:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$lt:A_SIGNED=1:A_WIDTH=25:B_SIGNED=1:B_WIDTH=32:Y_WIDTH=1:394426c56d1a028ba8fdd5469b163e04011def47.
+Running "alumacc" on wrapper $extern:wrap:$gt:A_SIGNED=1:A_WIDTH=25:B_SIGNED=1:B_WIDTH=25:Y_WIDTH=1:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$gt:A_SIGNED=1:A_WIDTH=25:B_SIGNED=1:B_WIDTH=25:Y_WIDTH=1:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$gt:A_SIGNED=1:A_WIDTH=25:B_SIGNED=1:B_WIDTH=25:Y_WIDTH=1:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $paramod$ae068143118b2c7ad06ddb43e871987ed45d3ca7\_90_alu for cells of type $alu.
+Using template $paramod$cb2dab5a097a08ce9efdd288026d79b91b4d3d75\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000011001 for cells of type $lcu.
+Using template $paramod\_90_lcu\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~1588 debug messages>
+
+16. Executing OPT pass (performing simple optimizations).
+
+16.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+<suppressed ~325 debug messages>
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+<suppressed ~17 debug messages>
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+<suppressed ~28 debug messages>
+Optimizing module lock_detector.
+<suppressed ~79 debug messages>
+Optimizing module phase_detector.
+Optimizing module pll_top.
+Optimizing module sync_edge.
+
+16.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+<suppressed ~201 debug messages>
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Finding identical cells in module `\lock_detector'.
+<suppressed ~39 debug messages>
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\sync_edge'.
+Removed a total of 84 cells.
+
+16.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\divider\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\nco\FW=s32'00000000000000000000000000011000..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \lock_detector..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \phase_detector..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \pll_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \sync_edge..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+16.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+  Optimizing cells in module $paramod\divider\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\nco\FW=s32'00000000000000000000000000011000.
+  Optimizing cells in module \lock_detector.
+  Optimizing cells in module \phase_detector.
+  Optimizing cells in module \pll_top.
+  Optimizing cells in module \sync_edge.
+Performed a total of 0 changes.
+
+16.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Finding identical cells in module `\lock_detector'.
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\sync_edge'.
+Removed a total of 0 cells.
+
+16.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+16.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+Finding unused cells or wires in module $paramod\divider\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\nco\FW=s32'00000000000000000000000000011000..
+Finding unused cells or wires in module \lock_detector..
+Finding unused cells or wires in module \phase_detector..
+Finding unused cells or wires in module \pll_top..
+Finding unused cells or wires in module \sync_edge..
+Removed 205 unused cells and 379 unused wires.
+<suppressed ~210 debug messages>
+
+16.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+<suppressed ~7 debug messages>
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Optimizing module lock_detector.
+Optimizing module phase_detector.
+Optimizing module pll_top.
+Optimizing module sync_edge.
+
+16.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+16.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\divider\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\nco\FW=s32'00000000000000000000000000011000..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \lock_detector..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \phase_detector..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \pll_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \sync_edge..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+16.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+  Optimizing cells in module $paramod\divider\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\nco\FW=s32'00000000000000000000000000011000.
+  Optimizing cells in module \lock_detector.
+  Optimizing cells in module \phase_detector.
+  Optimizing cells in module \pll_top.
+  Optimizing cells in module \sync_edge.
+Performed a total of 0 changes.
+
+16.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Finding identical cells in module `\lock_detector'.
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\sync_edge'.
+Removed a total of 0 cells.
+
+16.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+16.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+Finding unused cells or wires in module $paramod\divider\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\nco\FW=s32'00000000000000000000000000011000..
+Finding unused cells or wires in module \lock_detector..
+Finding unused cells or wires in module \phase_detector..
+Finding unused cells or wires in module \pll_top..
+Finding unused cells or wires in module \sync_edge..
+Removed 0 unused cells and 7 unused wires.
+<suppressed ~1 debug messages>
+
+16.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Optimizing module lock_detector.
+Optimizing module phase_detector.
+Optimizing module pll_top.
+Optimizing module sync_edge.
+
+16.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+16.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\divider\N=s32'00000000000000000000000000000100..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\nco\FW=s32'00000000000000000000000000011000..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \lock_detector..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \phase_detector..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \pll_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \sync_edge..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+16.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+  Optimizing cells in module $paramod\divider\N=s32'00000000000000000000000000000100.
+  Optimizing cells in module $paramod\nco\FW=s32'00000000000000000000000000011000.
+  Optimizing cells in module \lock_detector.
+  Optimizing cells in module \phase_detector.
+  Optimizing cells in module \pll_top.
+  Optimizing cells in module \sync_edge.
+Performed a total of 0 changes.
+
+16.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Finding identical cells in module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Finding identical cells in module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Finding identical cells in module `\lock_detector'.
+Finding identical cells in module `\phase_detector'.
+Finding identical cells in module `\pll_top'.
+Finding identical cells in module `\sync_edge'.
+Removed a total of 0 cells.
+
+16.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+16.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter..
+Finding unused cells or wires in module $paramod\divider\N=s32'00000000000000000000000000000100..
+Finding unused cells or wires in module $paramod\nco\FW=s32'00000000000000000000000000011000..
+Finding unused cells or wires in module \lock_detector..
+Finding unused cells or wires in module \phase_detector..
+Finding unused cells or wires in module \pll_top..
+Finding unused cells or wires in module \sync_edge..
+
+16.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter.
+Optimizing module $paramod\divider\N=s32'00000000000000000000000000000100.
+Optimizing module $paramod\nco\FW=s32'00000000000000000000000000011000.
+Optimizing module lock_detector.
+Optimizing module phase_detector.
+Optimizing module pll_top.
+Optimizing module sync_edge.
+
+16.23. Finished OPT passes. (There is nothing left to do.)
+
+17. Executing ABC pass (technology mapping using ABC).
+
+17.1. Extracting gate netlist of module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter' to `<abc-temp-dir>/input.blif'..
+Extracted 558 gates and 587 wires to a netlist network with 27 inputs and 49 outputs.
+
+17.1.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+17.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        5
+ABC RESULTS:               NOR cells:       37
+ABC RESULTS:              XNOR cells:       14
+ABC RESULTS:                OR cells:       56
+ABC RESULTS:             ORNOT cells:       16
+ABC RESULTS:              NAND cells:       10
+ABC RESULTS:               XOR cells:       87
+ABC RESULTS:            ANDNOT cells:      274
+ABC RESULTS:               NOT cells:       71
+ABC RESULTS:        internal signals:      511
+ABC RESULTS:           input signals:       27
+ABC RESULTS:          output signals:       49
+Removing temp directory.
+
+17.2. Extracting gate netlist of module `$paramod\divider\N=s32'00000000000000000000000000000100' to `<abc-temp-dir>/input.blif'..
+Extracted 8 gates and 12 wires to a netlist network with 3 inputs and 5 outputs.
+
+17.2.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+17.2.2. Re-integrating ABC results.
+ABC RESULTS:              NAND cells:        1
+ABC RESULTS:               AND cells:        1
+ABC RESULTS:            ANDNOT cells:        1
+ABC RESULTS:               XOR cells:        1
+ABC RESULTS:               NOT cells:        1
+ABC RESULTS:        internal signals:        4
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        5
+Removing temp directory.
+
+17.3. Extracting gate netlist of module `$paramod\nco\FW=s32'00000000000000000000000000011000' to `<abc-temp-dir>/input.blif'..
+Extracted 159 gates and 207 wires to a netlist network with 48 inputs and 24 outputs.
+
+17.3.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+17.3.2. Re-integrating ABC results.
+ABC RESULTS:             ORNOT cells:        2
+ABC RESULTS:               AND cells:        9
+ABC RESULTS:                OR cells:       31
+ABC RESULTS:              XNOR cells:       27
+ABC RESULTS:              NAND cells:       14
+ABC RESULTS:               NOR cells:       21
+ABC RESULTS:            ANDNOT cells:       35
+ABC RESULTS:               XOR cells:       20
+ABC RESULTS:        internal signals:      135
+ABC RESULTS:           input signals:       48
+ABC RESULTS:          output signals:       24
+Removing temp directory.
+
+17.4. Extracting gate netlist of module `\lock_detector' to `<abc-temp-dir>/input.blif'..
+Extracted 61 gates and 76 wires to a netlist network with 13 inputs and 13 outputs.
+
+17.4.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+17.4.2. Re-integrating ABC results.
+ABC RESULTS:               NOR cells:        2
+ABC RESULTS:               NOT cells:        1
+ABC RESULTS:               AND cells:        1
+ABC RESULTS:             ORNOT cells:        1
+ABC RESULTS:              XNOR cells:        2
+ABC RESULTS:              NAND cells:        9
+ABC RESULTS:               XOR cells:        8
+ABC RESULTS:                OR cells:       20
+ABC RESULTS:            ANDNOT cells:       17
+ABC RESULTS:        internal signals:       50
+ABC RESULTS:           input signals:       13
+ABC RESULTS:          output signals:       13
+Removing temp directory.
+
+17.5. Extracting gate netlist of module `\phase_detector' to `<abc-temp-dir>/input.blif'..
+Extracted 13 gates and 20 wires to a netlist network with 4 inputs and 4 outputs.
+
+17.5.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+17.5.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        3
+ABC RESULTS:                OR cells:        4
+ABC RESULTS:              NAND cells:        1
+ABC RESULTS:             ORNOT cells:        2
+ABC RESULTS:            ANDNOT cells:        2
+ABC RESULTS:        internal signals:       12
+ABC RESULTS:           input signals:        4
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+17.6. Extracting gate netlist of module `\pll_top' to `<abc-temp-dir>/input.blif'..
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+
+17.7. Extracting gate netlist of module `\sync_edge' to `<abc-temp-dir>/input.blif'..
+Extracted 2 gates and 4 wires to a netlist network with 2 inputs and 1 outputs.
+
+17.7.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: Entered genlib library with 13 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+17.7.2. Re-integrating ABC results.
+ABC RESULTS:            ANDNOT cells:        1
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        2
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+Removed 0 unused cells and 582 unused wires.
+
+18. Executing JSON backend.
+
+19. Executing Verilog backend.
+
+19.1. Executing BMUXMAP pass.
+
+19.2. Executing DEMUXMAP pass.
+Dumping module `$paramod$db93e613317dfb2b0e4491d763dbf58ebcc52dfe\loop_filter'.
+Dumping module `$paramod\divider\N=s32'00000000000000000000000000000100'.
+Dumping module `$paramod\nco\FW=s32'00000000000000000000000000011000'.
+Dumping module `\lock_detector'.
+Dumping module `\phase_detector'.
+Dumping module `\pll_top'.
+Dumping module `\sync_edge'.
+
+End of script. Logfile hash: bb46eaf94f, CPU: user 0.36s system 0.03s, MEM: 19.91 MB peak
+Yosys 0.33 (git sha1 2584903a060)
+Time spent: 45% 1x abc (0 sec), 16% 22x opt_expr (0 sec), ...

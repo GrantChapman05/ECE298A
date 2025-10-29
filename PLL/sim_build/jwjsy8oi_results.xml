@@ -1,0 +1,8 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1761700362" />
+    <testcase name="nco_runs_and_has_expected_freq" classname="test_nco" file="/home/gchapman/ECE298A/PLL/tb_py/test_nco.py" lineno="10" time="0.0019652843475341797" sim_time_ns="70.0" ratio_time="35618.25548950625">
+      <failure error_type="ValueError" error_msg="Cannot convert Logic('X') to int" />
+    </testcase>
+  </testsuite>
+</testsuites>
